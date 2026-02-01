@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jyotirling.com - Launching Soon</title>
+    <style>
+        /* Global Styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Cinzel', serif; background: #000; color: #FFD700; overflow-x: hidden; }
+        .container { position: relative; height: 100vh; overflow: hidden; }
+        .parallax { position: absolute; width: 100%; height: 100%; }
+        .foreground { z-index: 3; }
+        .midground { z-index: 2; }
+        .background { z-index: 1; }
+        .glow { text-shadow: 0 0 20px #FF9933, 0 0 40px #FFD700; }
+        .section { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; text-align: center; }
+        button { background: linear-gradient(45deg, #FF9933, #FFD700); border: none; padding: 15px 30px; border-radius: 10px; color: #000; font-weight: bold; cursor: pointer; transition: transform 0.3s; }
+        button:hover { transform: scale(1.05); }
+        .interactive { margin: 20px; }
+        .email { margin-top: 50px; }
+        input { padding: 10px; border-radius: 5px; border: 1px solid #FFD700; background: #000; color: #FFD700; }
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) { .section h1 { font-size: 2rem; } .section p { font-size: 1rem; } button { padding: 10px 20px; } }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="container">
+        <div id="hero-3d" class="parallax background"></div>
+    </div>
+
+
+    <script>
+        // Three.js 3D Hero Scene
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('hero-3d').appendChild(renderer.domElement);
+
+        // Cosmic Mandala / Shivling Geometry
+        const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+        const material = new THREE.MeshBasicMaterial({ color: 0xFF9933, wireframe: true });
+        const shivling = new THREE.Mesh(geometry, material);
+        scene.add(shivling);
+        camera.position.z = 30;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            shivling.rotation.x += 0.01;
+            shivling.rotation.y += 0.01;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // GSAP Scroll Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Scroll 1: Smoke moves, bells swing
+        gsap.to("#smoke", {
+            scrollTrigger: { trigger: "#hero-text", start: "top center", end: "bottom center", scrub: true },
+            x: 100, y: -50, rotation: 10
+        });
+        gsap.to("#bell", {
+            scrollTrigger: { trigger: "#hero-text", start: "top center", end: "bottom center", scrub: true },
+            rotation: 20, yoyo: true, repeat: -1
+        });
+
+        // Scroll 2: Mantra text appears with depth
+        gsap.to("#mantra-text", {
+            scrollTrigger: { trigger: "#mantra-section", start: "top center", end: "bottom center", scrub: true },
+            opacity: 1, z: 0, scale: 1.2
+        });
+
+        // Scroll 3: Divine object reveals (Shivling emerges)
+        gsap.to(shivling.position, {
+            scrollTrigger: { trigger: "#tools-section", start: "top center", end: "bottom center", scrub: true },
+            z: 10, opacity: 1
+        });
+
+        // Audio Toggle
+        document.getElementById('audio-toggle').addEventListener('click', () => {
+            const audio = document.getElementById('mantra-audio');
+            audio.muted = !audio.muted;
+            audio.play();
+        });
+
+        // Interactive Tools
+        const messages = ["Seek the light within.", "Patience is the path to enlightenment.", "The divine resides in stillness."];
+        const mantras = ["Om Shanti", "Om Namah Shivaya", "Om"];
+        const guidances = ["Yes, proceed with faith.", "No, reflect and wait.", "Perhaps, seek inner guidance."];
+
+        document.getElementById('divine-message').addEventListener('click', () => {
+            document.getElementById('message-display').textContent = messages[Math.floor(Math.random() * messages.length)];
+        });
+
+        document.getElementById('ring-bell').addEventListener('click', () => {
+            // Placeholder for bell sound (add audio file if needed)
+            alert("🔔 Bell rings! (Sound effect would play here)");
+        });
+
+        document.getElementById('mantra-reveal').addEventListener('click', () => {
+            document.getElementById('mantra-display').textContent = mantras[Math.floor(Math.random() * mantras.length)];
+        });
+
+        document.getElementById('yes-no').addEventListener('click', () => {
+            document.getElementById('guidance-display').textContent = guidances[Math.floor(Math.random() * guidances.length)];
+        });
+
+        document.getElementById('subscribe').addEventListener('click', () => {
+            const email = document.getElementById('email-input').value;
+            alert(`Subscribed with: ${email} (Static site - no backend)`);
+        });
+
+        // Resize for responsiveness
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
