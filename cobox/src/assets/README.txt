@@ -1,0 +1,1 @@
+Place your custom images, logos, and globe assets here. Replace placeholder images in CaseStudiesSection with real project images for production.

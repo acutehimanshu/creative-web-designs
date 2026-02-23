@@ -1,0 +1,232 @@
+@import "tailwindcss";
+
+/* =========================
+   ROOT DESIGN TOKENS
+========================= */
+:root {
+  --primary: #2EB97F;
+  --secondary: #3F6CE0;
+  --dark-bg: #0A1E5C;
+  --glass-bg: rgba(255, 255, 255, 0.08);
+}
+
+/* =========================
+   GLOBAL BASE STYLES
+========================= */
+@layer base {
+  body {
+    @apply bg-gradient-to-br from-[#0A1E5C] via-[#0F2A7A] to-[#08143E] 
+           text-white min-h-screen scroll-smooth antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-bold tracking-tight;
+  }
+
+  h1 {
+    @apply text-4xl md:text-6xl;
+  }
+
+  p {
+    @apply text-gray-300 leading-relaxed;
+  }
+}
+
+/* =========================
+   CONTAINER SYSTEM
+========================= */
+@layer utilities {
+  .container {
+    @apply mx-auto px-6 max-w-7xl;
+  }
+
+  .section {
+    @apply py-20 md:py-28 relative;
+  }
+}
+
+/* =========================
+   ADVANCED GLASS CARD
+========================= */
+.glass-card {
+  @apply relative bg-white/10 backdrop-blur-xl border border-white/20 
+         rounded-2xl p-8 transition-all duration-500;
+  box-shadow: 0 0 24px rgba(46,185,127,0.2);
+}
+
+.glass-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 0 40px rgba(63,108,224,0.4);
+  border-color: var(--secondary);
+}
+
+/* Animated Glow Border */
+.glass-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  z-index: -1;
+  opacity: 0;
+  transition: opacity .4s;
+}
+
+.glass-card:hover::before {
+  opacity: .4;
+}
+
+/* =========================
+   NEON BUTTON
+========================= */
+.btn-neon {
+  @apply relative px-6 py-3 rounded-full font-semibold 
+         text-white transition-all duration-300 overflow-hidden;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  box-shadow: 0 0 20px rgba(46,185,127,.5);
+}
+
+.btn-neon:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 40px rgba(63,108,224,.7);
+}
+
+/* =========================
+   GLOWING TEXT
+========================= */
+.text-glow {
+  color: var(--primary);
+  text-shadow: 0 0 12px rgba(46,185,127,.8),
+               0 0 24px rgba(63,108,224,.6);
+}
+
+/* =========================
+   AURORA BACKGROUND
+========================= */
+.aurora-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -10;
+  background: radial-gradient(circle at 30% 30%, #2EB97F33, transparent 50%),
+              radial-gradient(circle at 70% 70%, #3F6CE033, transparent 50%);
+  animation: auroraMove 8s infinite alternate ease-in-out;
+}
+
+@keyframes auroraMove {
+  0% { transform: scale(1) translate(0,0); }
+  100% { transform: scale(1.2) translate(-40px, 40px); }
+}
+
+/* =========================
+   FADE IN ANIMATION
+========================= */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 1s forwards;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   3D HOVER CARD
+========================= */
+.card-3d {
+  @apply transition-transform duration-500;
+  transform-style: preserve-3d;
+}
+
+.card-3d:hover {
+  transform: rotateX(8deg) rotateY(-8deg);
+}
+
+/* =========================
+   GRID BACKGROUND
+========================= */
+.grid-bg {
+  background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* =========================
+   ENHANCED SCROLLBAR
+========================= */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #08143E;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--primary), var(--secondary));
+  border-radius: 8px;
+}
+
+/* =========================
+   CURSOR GLOW (DESKTOP)
+========================= */
+@media (min-width: 1024px) {
+  body {
+    cursor: none;
+  }
+
+  .cursor-glow {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--primary) 40%, transparent 70%);
+    box-shadow: 0 0 40px 12px rgba(46,185,127,.5);
+    mix-blend-mode: lighten;
+    transition: transform .08s ease-out;
+  }
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #2EB97F, #3F6CE0, #2EB97F);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradientMove 4s linear infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0%; }
+  100% { background-position: 200%; }
+}
+
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0); }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.05) 25%,
+    rgba(255,255,255,0.2) 50%,
+    rgba(255,255,255,0.05) 75%
+  );
+  background-size: 200%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200%; }
+  100% { background-position: 200%; }
+}
