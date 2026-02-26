@@ -1,0 +1,184 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Import Inter font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: #ffffff;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #00D4FF, #0EA5E9);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #0EA5E9, #0284C7);
+}
+
+/* Glassmorphism utilities */
+.glass-card {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+}
+
+/* Gradient text effect */
+.gradient-text {
+  background: linear-gradient(135deg, #00D4FF 0%, #0EA5E9 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Grid background overlay */
+.grid-background {
+  background-image: 
+    linear-gradient(rgba(0, 212, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Floating shapes */
+.floating-shape {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(14, 165, 233, 0.05));
+  filter: blur(40px);
+  animation: float 8s ease-in-out infinite;
+}
+
+.floating-shape:nth-child(1) {
+  width: 200px;
+  height: 200px;
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.floating-shape:nth-child(2) {
+  width: 300px;
+  height: 300px;
+  top: 60%;
+  right: 10%;
+  animation-delay: 2s;
+}
+
+.floating-shape:nth-child(3) {
+  width: 150px;
+  height: 150px;
+  bottom: 20%;
+  left: 60%;
+  animation-delay: 4s;
+}
+
+/* Custom button styles */
+.btn-primary {
+  @apply bg-gradient-to-r from-neon-blue to-cyan-500 text-white px-8 py-4 rounded-xl 
+         font-semibold transition-all duration-300 hover:shadow-neon hover:scale-105
+         active:scale-95;
+}
+
+.btn-secondary {
+  @apply glass border-2 border-neon-blue/20 text-gray-800 px-8 py-4 rounded-xl 
+         font-semibold transition-all duration-300 hover:border-neon-blue/40 
+         hover:shadow-glass-hover hover:scale-105 active:scale-95;
+}
+
+/* Section padding */
+.section-padding {
+  @apply py-20 px-6 md:px-12 lg:px-24 xl:px-32;
+}
+
+/* Container max width */
+.container-wrapper {
+  @apply max-w-7xl mx-auto;
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-8px);
+}
+
+/* Progress bar */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #00D4FF, #0EA5E9);
+  transform-origin: 0%;
+  z-index: 1000;
+}
+
+/* Cursor glow effect */
+.cursor-glow {
+  position: fixed;
+  pointer-events: none;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s;
+  z-index: -1;
+}
+
+/* Loading animation */
+.loading-dots {
+  display: inline-block;
+}
+
+.loading-dots::after {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: loading-dots 1.5s infinite;
+}
+
+@keyframes loading-dots {
+  0%, 20% { box-shadow: 0 0 currentColor, 8px 0 transparent, 16px 0 transparent; }
+  40% { box-shadow: 0 0 currentColor, 8px 0 currentColor, 16px 0 transparent; }
+  60%, 100% { box-shadow: 0 0 currentColor, 8px 0 currentColor, 16px 0 currentColor; }
+}
